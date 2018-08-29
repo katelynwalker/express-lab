@@ -11,6 +11,7 @@ const items = {
                 vm.itemList = response.data;
             });
         }
+        getItems();
     }
 }
 
