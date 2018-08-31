@@ -7,10 +7,12 @@ const items = {
             <button type="submit">Add to Cart</button>
             </form>
             <section ng-repeat="item in $ctrl.itemList track by $index">
-            <p>{{ item.product }}</p>
+            <p>{{ item.product }}  <button type="submit">X</button></p>
             <p>{{ item.price }}</p>
             <p>{{ item.quantity }}</p>
-            <button type="submit">X</button>
+            <form>
+            <input placeholder="Change qty">
+            <button>Update</button>
             </section>`         ,
     controller: ["CartService", function(CartService) {
         const vm = this;

@@ -12,19 +12,24 @@ function CartService($http) {
         })
     };
 
-    vm.addItem = () => {
+    vm.addItem = (items) => {
         return $http({
-            url:"/items",
+            url:"/items/all",
             method:"POST",
+            data: {
+                product: items.product,
+                price: items.price,
+                quantity: items.quantity
+            }
         }).then((response) => {
             vm.itemList = response.data;
-            return vm.itemList;
+            return vm.response.data;
         })
     };
 
     vm.removeItem = () => {
         return $http({
-            url:"/items",
+            url:"/items:id",
             method:"DELETE",
         }).then((response) => {
             vm.itemList = response.data;
@@ -34,11 +39,14 @@ function CartService($http) {
 
     vm.updateItem = () => {
         return $http({
-            url:"/items",
+            url:"/items:id",
             method:"PUT",
+            data: {
+                quantity: items.quantity
+            }
         }).then((response) => {
             vm.itemList = response.data;
-            return vm.itemList;
+            return vm.response.data;
         })
     };
 }
