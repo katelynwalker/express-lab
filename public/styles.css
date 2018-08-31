@@ -1,0 +1,58 @@
+/* 
+#043007 dark green
+#005c13 green
+#e2e2eb grey
+#ffd500 yellow
+#e59800 gold */
+
+/* font-family: 'Viga', sans-serif;
+font-family: 'Tajawal', sans-serif; */
+h1{
+    text-align:center;
+}
+body {
+    background-color:#e2e2eb;
+    color:#043007;
+    font-family: Tajawal, sans-serif; 
+}
+button {
+   background-color:#ffd500; 
+   color:#005c13;
+   border-radius:5px;
+}
+.new {
+    background-color:#ffd500;
+    border-radius:20px;
+    padding:20px;
+    text-align:center;
+    width:60%;
+}
+.new button{
+    background-color:#005c13;
+    color:#e2e2eb;
+    height:25px;
+    width:100px;
+}
+.new input{
+    /* margin-left:100px; */
+    border-radius:5px;
+    border:1px solid black;
+    height:20px;
+    /* width:200px; */
+}
+.item{
+    border-bottom:1px solid black;
+    margin:50px;
+    width:300px;
+
+}
+#product{
+    color:#005c13;
+   
+}
+#price{
+    color:#e59800 ;
+}
+#qty{
+    color:#043007;
+}

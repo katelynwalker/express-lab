@@ -26,7 +26,7 @@ items.post("/items/all", (req, res) => {
   
   items.put("/items/:id", (req, res) => {
     pool.query("Update ShoppingCart set quantity=$1::int Where id=$2::int", [req.body.quantity, parseInt(req.params.id)]).then(() => {
-      pool.query("Select * From ShoppingCart").then((results) => {
+      pool.query("Select * From ShoppingCart order by id").then((results) => {
         console.log(results.rows);
         res.send(results.rows);
       });
