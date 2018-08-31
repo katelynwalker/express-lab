@@ -2,69 +2,45 @@
 
 const express = require("express");
 const items = express.Router();
-
-const itemList = [
-    {
-        id:1,
-        product:"Avocados",
-        price:2,
-        quantity:3,
-    },
-    {
-        id:2,
-        product:"Ice Cream",
-        price:4,
-        quantity:1,
-    },
-    {
-        id:3,
-        product:"Hot Sauce",
-        price:2,
-        quantity:1,
-    },
-    {
-        id:4,
-        product:"Cherries",
-        price:3,
-        quantity:1,
-    }
+const pool = require("../pg-connection-pool");
 
 
-];
 
-items.get("/items", (req, res) => {
-    res.send(itemList);
-})
+items.get("/items/all", (req, res) => {
+    pool.query("Select * from ShoppingCart").then((results) => {
+        console.log(results.rows);
+        res.send(results.rows);
+    });
+});
 
-// let idCount = itemList.length
-// item.post("/items", (req, res) => {
-//     itemList.push({
-//         id: req.body.id,
-//         product: req.body.product,
-//         price: req.body.price,
-//         quantity: req.body.quantity,
-//     });
-//     res.send(itemList);
 
-// items.put("/items/:id", (req, res) => {
-//     let count = 0;
-//     for (let item in itemList) {
-//         if (item.id == req.params.id) {
-//             itemList.splice(count, 1, req.body);
-//         }
-//         count++;
-//     }
-//     res.send(itemList);
-// });
-// items.delete("/items/:id", (req, res) => {
-//     let count = 0;
-//     for (let item of itemList) {
-//         if (item.id == req.params.id) {
-//             itemList.splice(count, 1);
-//         }
-//         count++;
-//     }
-//     res.send(itemList);
-// })
+items.post("/items/all", (req, res) => {
+    pool.query("Insert Into ShoppingCart(product, price, quantity) Values($1::text, $2::int, $3::int)", [req.body.product, req.body.price, req.body.quantity]).then(() => {
+      pool.query("Select * From ShoppingCart").then((results) => {
+        console.log(results.rows);
+        res.send(results.rows);
+      });
+    }); 
+  });
+  
+  items.put("/items/:id", (req, res) => {
+    pool.query("Update ShoppingCart set product=$1::text Where id=$2::int", [req.body.product, parseInt(req.params.id)]).then(() => {
+      pool.query("Select * From ShoppingCart").then((results) => {
+        console.log(results.rows);
+        res.send(results.rows);
+      });
+    });
+  });
+  
+    items.delete("/items/:id", (req, res) => {
+    pool.query("Delete From ShoppingCart Where id=$1::int", [parseInt(req.params.id)]).then(() => {
+      pool.query("Select * From ShoppingCart").then((results) => {
+        console.log(results.rows);
+        res.send(results.rows);
+      });
+    });
+  });
+
+
 
 module.exports = items;
